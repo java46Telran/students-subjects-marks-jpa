@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 @Table(name="subjects")
 public class SubjectEntity {
 	@Id
+	@Column(name="suid")
 	long id;
 	@Column(unique = true)
 	String subject;

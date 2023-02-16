@@ -7,10 +7,10 @@ public class MarkEntity {
 	@Id
 	long id;
 	@ManyToOne
-	@JoinColumn(name = "student_id")
+	@JoinColumn(name = "stid")
 	StudentEntity student;
 	@ManyToOne
-	@JoinColumn(name = "subject_id")
+	@JoinColumn(name = "suid")
 	SubjectEntity subject;
 	int mark;
 	public MarkEntity(StudentEntity student, SubjectEntity subject, int mark) {
