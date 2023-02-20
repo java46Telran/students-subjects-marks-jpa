@@ -3,6 +3,8 @@ package telran.spring.data.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import telran.spring.data.model.QueryData;
+import telran.spring.data.model.QueryType;
 import telran.spring.data.proj.*;
 import telran.spring.data.service.CollegeService;
 
@@ -50,5 +52,14 @@ List<MarkProj> getMarksByNameSubject(@RequestParam (name = "subject")String subj
 	@GetMapping("marks/distribution")
 	List<IntervalMarksCount>marksDistribution(@RequestParam(defaultValue="10", name="interval") int interval) {
 		return collegeService.marksDistribution(interval);
+	}
+	@PostMapping("query")
+	List<String> getQuery(@RequestBody QueryData queryData) {
+		return queryData.type == QueryType.JPQL ? collegeService.getJpqlQuery(queryData.query) :
+			collegeService.getSqlQuery(queryData.query);
+	}
+	@DeleteMapping("students")
+	List<String> removeStudents(@RequestParam("score") int markCountLess) {
+		return collegeService.removeStudents(markCountLess);
 	}
 }

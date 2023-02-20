@@ -18,4 +18,8 @@ public interface CollegeService {
 	List<StudentSubjectMark> getMarksOfWorstStudents(int nStudents); //returns data about marks for nStudents worst student
 	List<IntervalMarksCount> marksDistribution(int interval);//returns distribution of marks as list of objects, 
 	//each object contains minimal / maximal interval values and count of occurrences
+	List<String> getSqlQuery(String sqlQuery);
+	List<String> getJpqlQuery(String jpqlQuery);
+	List<String> removeStudents(double markCountLess); //removing all students having avg(mark) * count(mark) less than a given value
+	
 }

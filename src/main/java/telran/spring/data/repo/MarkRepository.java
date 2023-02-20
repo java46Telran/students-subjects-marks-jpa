@@ -22,12 +22,15 @@ public interface MarkRepository extends JpaRepository<MarkEntity, Long>{
 			nativeQuery = true)
 	List<StudentAvgMark> studentsAvgMarks();
 	/*********************************************************/
-	@Query(value="select name " + STUDENTS_MARKS + "group by name having avg(mark) >"
-			+ " (select avg(mark) from marks)", 
-			nativeQuery = true)
+//	@Query(value="select name " + STUDENTS_MARKS + "group by name having avg(mark) >"
+//			+ " (select avg(mark) from marks)", 
+//			nativeQuery = true)
+	@Query("select student.name as name from MarkEntity group by student.name having avg(mark) > "
+			+ "(select avg(mark) from MarkEntity)")
 	List<StudentName> bestStudents();
 	/*********************************************************/
-	@Query(value="select name " +STUDENTS_MARKS + "group by name order by avg(mark) desc limit :nStudents", 
+	@Query(value="select name " +STUDENTS_MARKS + "group by name order by avg(mark) desc"
+			+ " limit :nStudents", 
 			nativeQuery = true)
 	List<StudentName> topBestStudents(int nStudents);
 	/*********************************************************/
@@ -41,9 +44,12 @@ public interface MarkRepository extends JpaRepository<MarkEntity, Long>{
 			nativeQuery = true)
 	List<StudentSubjectMark> worstStudentsMarks(int nStudents);
 	/*********************************************************/
-	@Query(value="select " + MIN_INTERVAL +" as min,"
+//	@Query(value="select " + MIN_INTERVAL +" as min,"
+//			+  MIN_INTERVAL + " + :interval - 1 as max, "
+//			+ "count(*) as count from marks group by min, max order by min", nativeQuery = true)
+	@Query("select " + MIN_INTERVAL +" as min,"
 			+  MIN_INTERVAL + " + :interval - 1 as max, "
-			+ "count(*) as count from marks group by min, max order by min", nativeQuery = true)
+			+ "count(*) as count from MarkEntity group by min, max order by min")
 	List<IntervalMarksCount> marksDistribution(int interval);
 	
 	
