@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import telran.spring.data.entities.SubjectEntity;
 
 public interface SubjectRepository extends JpaRepository<SubjectEntity, Long>{
-@Query("select subjects from SubjectEntity subjects where id "
-		+ "in (select subject.id from MarkEntity group by subject.id"
-		+ " having count(*) < :marksThreshold)")
+@Query("select course from SubjectEntity course where subject "
+		+ "in (select ms.subject from MarkEntity me right join me.subject ms group by"
+		+ " ms.subject"
+		+ " having count(mark) < :marksThreshold)")
 	List<SubjectEntity> unpopularSubjects(long marksThreshold);
 
 }

@@ -66,4 +66,9 @@ List<MarkProj> getMarksByNameSubject(@RequestParam (name = "subject")String subj
 	List<String> removeSubjects(@RequestParam("marksThreshold")int marksThreshold) {
 		return collegeService.removeLeastPopularSubjects(marksThreshold);
 	}
+	@PutMapping("marks")
+	void increaseMarks(@RequestParam("studentId") long studentId,
+			@RequestParam("delta") int delta) {
+		collegeService.increaseMarksStudent(studentId, delta);
+	}
 }
