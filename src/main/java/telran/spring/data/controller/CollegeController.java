@@ -62,4 +62,8 @@ List<MarkProj> getMarksByNameSubject(@RequestParam (name = "subject")String subj
 	List<String> removeStudents(@RequestParam("score") int markCountLess) {
 		return collegeService.removeStudents(markCountLess);
 	}
+	@DeleteMapping("subjects")
+	List<String> removeSubjects(@RequestParam("marksThreshold")int marksThreshold) {
+		return collegeService.removeLeastPopularSubjects(marksThreshold);
+	}
 }

@@ -163,4 +163,14 @@ public class CollegeServiceImpl implements CollegeService {
 		return removedStudentNames;
 	}
 
+	@Override
+	@Transactional
+	public List<String> removeLeastPopularSubjects(int marksThreshold) {
+		List<SubjectEntity> subjectsToRemove = subjectRepository.unpopularSubjects(marksThreshold);
+		subjectsToRemove.forEach(subjectRepository::delete);
+		List<String> removedSubjectNames = subjectsToRemove.stream().map(SubjectEntity::getSubject)
+				.toList();
+		return removedSubjectNames;
+	}
+
 }
